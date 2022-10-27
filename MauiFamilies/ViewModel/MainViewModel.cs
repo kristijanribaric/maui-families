@@ -12,6 +12,7 @@ namespace MauiFamilies.ViewModel {
         
         [ObservableProperty]
         ObservableCollection<Family> families;
+        
 
         [ObservableProperty]
         string membersString;
@@ -36,12 +37,15 @@ namespace MauiFamilies.ViewModel {
                     family = new Family() { LastName = LastName };
                     Families.Add(family);
                 }
+                if ( family.FamilyMembers.Any(m => m.FirstName == newMember.FirstName) ) {
+                    return;
+                }
                 family.FamilyMembers.Add(newMember);
-
+               
             }
+           
 
-
-            membersString = string.Empty;
+            MembersString = string.Empty;
         }
 
         [RelayCommand]

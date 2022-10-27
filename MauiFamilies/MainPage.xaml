@@ -26,19 +26,21 @@
                             </SwipeView.RightItems>
                             <Grid Padding="0,5">
                                 <Frame>
-                                    <HorizontalStackLayout>
-                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"  FontSize="24" FontAttributes="Bold" Margin="0,0,10,0"/>
-                                        <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}">
+                                    <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, *, Auto">
+                                        <Label VerticalOptions="Center" Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"  FontSize="24" FontAttributes="Bold" Margin="0,0,10,0"/>
+                                        <CollectionView VerticalOptions="Center" Grid.Column="1" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}">
                                             <CollectionView.ItemTemplate>
                                                 <DataTemplate x:DataType="{x:Type x:String}">
-                                                    <Grid>
-                                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}"/>
+                                                    <Grid Margin="5">
+                                                        <Label  Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}"/>
                                                     </Grid>
                                                   
                                                 </DataTemplate>
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
-                                    </HorizontalStackLayout>
+                                        <Button VerticalOptions="Start" Grid.Column="2" Text="X" BackgroundColor="Red" TextColor="White" FontAttributes="Bold" FontSize="24" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                    </Grid>
                                 </Frame>
 
                             </Grid>
