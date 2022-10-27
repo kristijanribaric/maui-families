@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiFamilies.MainPage"
+             xmlns:viewmodel="clr-namespace:MauiFamilies.ViewModel"
+             x:DataType="viewmodel:MainViewModel"
+             >
+
+    <ScrollView>
+        <Grid  Padding="10" RowDefinitions="Auto, Auto, *" ColumnDefinitions=".75*,.25*">
+
+
+            <Label Text="Please Enter Family Members:" Grid.ColumnSpan="2" Margin="0,20"/>
+            <Entry  Grid.Row="1"  Placeholder="John Doe, Jane Doe..." Text="{Binding MembersString}"/>
+            <Button Text="Submit" Grid.Row="1" Grid.Column="2" Command="{Binding AddCommand}"/>
+            <CollectionView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Families}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type x:Object}">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                               CommandParameter="{Binding .}"
+                                     />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid Padding="0,5">
+                                <Frame>
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"  FontSize="24" FontAttributes="Bold" Margin="0,0,10,0"/>
+                                        <CollectionView ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="{x:Type x:String}">
+                                                    <Grid>
+                                                        <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}"/>
+                                                    </Grid>
+                                                  
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </HorizontalStackLayout>
+                                </Frame>
+
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
