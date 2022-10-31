@@ -3,6 +3,7 @@
     x:Class="MauiFamilies.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MauiFamilies.Models"
     xmlns:viewmodel="clr-namespace:MauiFamilies.ViewModel"
     x:DataType="viewmodel:MainViewModel">
 
@@ -33,7 +34,7 @@
                 ItemsLayout="VerticalGrid,3"
                 ItemsSource="{Binding Families}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type x:Object}">
+                    <DataTemplate x:DataType="{x:Type models:Family}">
                         <Grid Padding="0,5">
                             <Frame>
                                 <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto, *">
@@ -41,7 +42,7 @@
                                         Margin="0,0,10,0"
                                         FontAttributes="Bold"
                                         FontSize="24"
-                                        Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"
+                                        Text="{Binding Source={RelativeSource AncestorType={x:Type models:Family}}, Path=LastName}"
                                         VerticalOptions="Center" />
                                     <Button
                                         Grid.Column="1"
@@ -59,12 +60,12 @@
                                         Grid.ColumnSpan="2"
                                         CanReorderItems="True"
                                         ItemsLayout="VerticalGrid,4"
-                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}"
+                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type models:Family}}, Path=FamilyMembers}"
                                         VerticalScrollBarVisibility="Always">
                                         <CollectionView.ItemTemplate>
-                                            <DataTemplate x:DataType="{x:Type x:String}">
+                                            <DataTemplate x:DataType="{x:Type models:FamilyMember}">
                                                 <Grid>
-                                                    <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}" />
+                                                    <Label Text="{Binding Source={RelativeSource AncestorType={x:Type models:FamilyMember}}, Path=FirstName}" />
                                                 </Grid>
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
