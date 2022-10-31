@@ -13,13 +13,6 @@ namespace MauiFamilies.ViewModel {
         [ObservableProperty]
         ObservableCollection<Family> families;
         
-        public Family FamilyModel {
-        get; set; }
-
-        public FamilyMember FamilyMemberModel {
-            get; set;
-        }
-
         [ObservableProperty]
         string membersString;
 

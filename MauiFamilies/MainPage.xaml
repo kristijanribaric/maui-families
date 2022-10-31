@@ -42,7 +42,7 @@
                                         Margin="0,0,10,0"
                                         FontAttributes="Bold"
                                         FontSize="24"
-                                        Text="{Binding Source={RelativeSource AncestorType={x:Type models:Family}}, Path=LastName}"
+                                        Text="{Binding LastName}"
                                         VerticalOptions="Center" />
                                     <Button
                                         Grid.Column="1"
@@ -60,12 +60,12 @@
                                         Grid.ColumnSpan="2"
                                         CanReorderItems="True"
                                         ItemsLayout="VerticalGrid,4"
-                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type models:Family}}, Path=FamilyMembers}"
+                                        ItemsSource="{Binding FamilyMembers}"
                                         VerticalScrollBarVisibility="Always">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate x:DataType="{x:Type models:FamilyMember}">
                                                 <Grid>
-                                                    <Label Text="{Binding Source={RelativeSource AncestorType={x:Type models:FamilyMember}}, Path=FirstName}" />
+                                                    <Label Text="{Binding FirstName}" />
                                                 </Grid>
                                             </DataTemplate>
                                         </CollectionView.ItemTemplate>
