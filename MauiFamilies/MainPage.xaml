@@ -1,50 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiFamilies.MainPage"
-             xmlns:viewmodel="clr-namespace:MauiFamilies.ViewModel"
-             x:DataType="viewmodel:MainViewModel"
-             >
+<ContentPage
+    x:Class="MauiFamilies.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:MauiFamilies.ViewModel"
+    x:DataType="viewmodel:MainViewModel">
 
     <ScrollView>
-        <Grid  Padding="10" RowDefinitions="Auto, Auto, *" ColumnDefinitions=".75*,.25*">
+        <Grid
+            Padding="10"
+            ColumnDefinitions=".75*,.25*"
+            RowDefinitions="Auto, Auto, *">
 
 
-            <Label Text="Please Enter Family Members:" Grid.ColumnSpan="2" Margin="0,20"/>
-            <Entry  Grid.Row="1"  Placeholder="John Doe, Jane Doe..." Text="{Binding MembersString}"/>
-            <Button Text="Submit" Grid.Row="1" Grid.Column="2" Command="{Binding AddCommand}"/>
-            <CollectionView Grid.Row="2" Grid.ColumnSpan="2" ItemsSource="{Binding Families}">
+            <Label
+                Grid.ColumnSpan="2"
+                Margin="0,20"
+                Text="Please Enter Family Members:" />
+            <Entry
+                Grid.Row="1"
+                Placeholder="John Doe, Jane Doe..."
+                Text="{Binding MembersString}" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Command="{Binding AddCommand}"
+                Text="Submit" />
+            <CollectionView
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                CanReorderItems="True"
+                ItemsLayout="VerticalGrid,3"
+                ItemsSource="{Binding Families}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type x:Object}">
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems>
-                                    <SwipeItem Text="Delete" BackgroundColor="Red" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
-                                               CommandParameter="{Binding .}"
-                                     />
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Grid Padding="0,5">
-                                <Frame>
-                                    <Grid RowDefinitions="Auto" ColumnDefinitions="Auto, *, Auto">
-                                        <Label VerticalOptions="Center" Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"  FontSize="24" FontAttributes="Bold" Margin="0,0,10,0"/>
-                                        <CollectionView VerticalOptions="Center" Grid.Column="1" ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}">
-                                            <CollectionView.ItemTemplate>
-                                                <DataTemplate x:DataType="{x:Type x:String}">
-                                                    <Grid Margin="5">
-                                                        <Label  Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}"/>
-                                                    </Grid>
-                                                  
-                                                </DataTemplate>
-                                            </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                        <Button VerticalOptions="Start" Grid.Column="2" Text="X" BackgroundColor="Red" TextColor="White" FontAttributes="Bold" FontSize="24" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
-                                               CommandParameter="{Binding .}"/>
-                                    </Grid>
-                                </Frame>
+                        <Grid Padding="0,5">
+                            <Frame>
+                                <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto, *">
+                                    <Label
+                                        Margin="0,0,10,0"
+                                        FontAttributes="Bold"
+                                        FontSize="24"
+                                        Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=LastName}"
+                                        VerticalOptions="Center" />
+                                    <Button
+                                        Grid.Column="1"
+                                        BackgroundColor="Red"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding .}"
+                                        FontAttributes="Bold"
+                                        FontSize="24"
+                                        MaximumHeightRequest="50"
+                                        MaximumWidthRequest="50"
+                                        Text="X"
+                                        TextColor="White" />
+                                    <CollectionView
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        CanReorderItems="True"
+                                        ItemsLayout="VerticalGrid,4"
+                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FamilyMembers}"
+                                        VerticalScrollBarVisibility="Always">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="{x:Type x:String}">
+                                                <Grid>
+                                                    <Label Text="{Binding Source={RelativeSource AncestorType={x:Type x:Object}}, Path=FirstName}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
 
-                            </Grid>
-                        </SwipeView>
+                                </Grid>
+                            </Frame>
+
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
